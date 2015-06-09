@@ -43,7 +43,6 @@ class Migration(migrations.Migration):
                 ('image', fluent_contents.extensions.PluginImageField(max_length=100, verbose_name='Image', blank=True)),
                 ('description', fluent_contents.extensions.PluginHtmlField(verbose_name='Description', blank=True)),
                 ('location', geoposition.fields.GeopositionField(max_length=42, verbose_name='Location')),
-                ('is_info_window_default', models.BooleanField(default=False, verbose_name='Show info window by default')),
             ],
             options={
                 'ordering': ('title',),

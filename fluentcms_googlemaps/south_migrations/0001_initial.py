@@ -27,7 +27,6 @@ class Migration(SchemaMigration):
             ('description', self.gf('fluent_contents.extensions.PluginHtmlField')(blank=True)),
             ('group', self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='markers', null=True, to=orm['fluentcms_googlemaps.MarkerGroup'])),
             ('location', self.gf('geoposition.fields.GeopositionField')(max_length=42)),
-            ('is_info_window_default', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
         db.send_create_signal(u'fluentcms_googlemaps', ['Marker'])
 
@@ -115,7 +114,6 @@ class Migration(SchemaMigration):
             'group': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'markers'", 'null': 'True', 'to': u"orm['fluentcms_googlemaps.MarkerGroup']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('fluent_contents.extensions.PluginImageField', [], {'max_length': '100', 'blank': 'True'}),
-            'is_info_window_default': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'location': ('geoposition.fields.GeopositionField', [], {'max_length': '42'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '200'})
         },

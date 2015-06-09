@@ -75,8 +75,6 @@ class Marker(CachedModelMixin, models.Model):
     group = models.ForeignKey(MarkerGroup, related_name='markers', verbose_name=_("Group"), blank=True, null=True)
     location = GeopositionField(_("Location"))  # TODO: use different package?
 
-    is_info_window_default = models.BooleanField(_("Show info window by default"), blank=True, default=False)
-
     class Meta:
         verbose_name = _("Marker")
         verbose_name_plural = _("Markers")
@@ -104,7 +102,6 @@ class Marker(CachedModelMixin, models.Model):
             'description': self.description,
             'group_id': self.group_id,
             'location': [float(geoposition.latitude), float(geoposition.longitude)],
-            'is_info_window_default': self.is_info_window_default,
             'click_zoom': 7,
         }
 
