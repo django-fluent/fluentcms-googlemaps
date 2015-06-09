@@ -1,0 +1,14 @@
+{% extends "admin/change_form.html" %}{% load wysiwyg %}
+{% comment %}
+  The PluginHtmlField is triggered only within the PlaceholderEditorAdmin.
+  When using a separate admin interface, make sure the HTML widgets are enabled.
+  TODO: django-fluent-contents should provide a templatetag for this, avoid having to add this file.
+{% endcomment %}
+
+{% block extrahead %}{{ block.super }}
+  {% wysiwyg_setup %}
+{% endblock %}
+
+{% block content %}{{ block.super }}
+  {% wysiwyg_editor "description" %}
+{% endblock %}

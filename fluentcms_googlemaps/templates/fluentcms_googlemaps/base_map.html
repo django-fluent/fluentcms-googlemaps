@@ -1,0 +1,31 @@
+{% load i18n fluentcms_googlemaps_tags %}
+<div class="{% block root-class %}map{% endblock %}">
+    {% block title %}<h2>{{ instance.title }}</h2>{% endblock %}
+
+    {% block googlemaps-area %}
+    <div class="googlemaps-area{% block googlemaps-area-extra-classes %} auto-enable{% endblock %}" {% block map-attributes %}{% data_attrs instance %}{% endblock %}>
+      <div class="zoom-back"><a href="#">{% trans "Back to world-wide view" %}</a></div>
+      <div class="googlemaps-widget"></div>
+      <script class="googlemaps-data" type="application/json">
+        {{ instance.get_marker_data|to_json }}
+      </script>
+    </div>
+    {% endblock %}
+
+    {% block sidebar %}
+      <aside>
+        <div class="sidebar-pane home">
+          {% block sidebar-home %}{% endblock %}
+        </div>
+        <div class="sidebar-pane marker-detail">
+          {% block sidebar-detail %}
+            <header>
+              <h2 class="marker-title"></h2>
+              <div class="marker-image"></div>
+            </header>
+            <div class="marker-description"></div>
+          {% endblock %}
+        </div>
+      </aside>
+    {% endblock %}
+</div>
