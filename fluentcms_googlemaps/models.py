@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 from django.utils.six import python_2_unicode_compatible
@@ -58,6 +59,8 @@ class MarkerGroup(CachedModelMixin, models.Model):
             'markers': [
                 marker.to_dict() for marker in self.markers.all()
             ],
+            #click_zoom
+            #cluster_weight
         }
 
 
@@ -173,4 +176,11 @@ class MapItem(ContentItem):
             'zoom_control': True,
             'street_view_control': False,
             'show_clusters': self.show_clusters,
+            'static_url': settings.STATIC_URL,
+            #cluster_image_path: '/static/fluentcms_googlemaps/img/m'
+            #cluster_grid_size: 60
+            #cluster_min_size: 2
+            #cluster_max_zoom  (default max_zoom -1)
+            #cluster_styles: {..}
+            #cluster_average_center: False
         }

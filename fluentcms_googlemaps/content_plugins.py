@@ -1,12 +1,12 @@
 from django import forms
 from django.db import models
 from django.forms import Media
-from apps.fluentcms_googlemaps.models import MapItem
 from django.utils.translation import ugettext_lazy as _, get_language
 from fluent_contents.extensions import ContentPlugin, plugin_pool
+from fluent_contents.forms import ContentItemForm
 from geoposition.forms import GeopositionField, GeopositionWidget
 from . import appsettings
-from fluent_contents.forms import ContentItemForm
+from .models import MapItem
 
 
 class InlineGeopositionWidget(GeopositionWidget):

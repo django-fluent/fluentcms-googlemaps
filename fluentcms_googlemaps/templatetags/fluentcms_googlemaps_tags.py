@@ -43,6 +43,14 @@ def data_attrs(mapitem):
         pass
 
     data_attrs.update(mapitem.get_map_options())
-    return u''.join([u' data-{0}="{1}"'.format(k.replace('_', '-'), conditional_escape(v))
+    return u''.join([u' data-{0}="{1}"'.format(k.replace('_', '-'), _data_value(v))
          for k, v in data_attrs.items()
     ])
+
+def _data_value(value):
+    if isinstance(value, bool):
+        return 'true' if value else 'false'
+    elif isinstance(value, int):
+        return value
+    else:
+        return conditional_escape(value)
