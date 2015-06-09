@@ -1,5 +1,5 @@
 fluentcms-googlemaps
-===================
+====================
 
 A plugin for django-fluent-contents_ to show a Google Maps widget on a website.
 
