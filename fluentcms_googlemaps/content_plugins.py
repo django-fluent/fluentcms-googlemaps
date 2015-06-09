@@ -1,6 +1,7 @@
 from django import forms
 from django.db import models
 from django.forms import Media
+from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _, get_language
 from fluent_contents.extensions import ContentPlugin, plugin_pool
 from fluent_contents.forms import ContentItemForm
@@ -9,15 +10,44 @@ from . import appsettings
 from .models import MapItem
 
 
+MAX_MAP_ZOOM = 23  # Deep zoom
+
+class ZoomRangeWidget(forms.TextInput):
+    """
+    Range widget
+    """
+    input_type = 'range'
+    min_value = 0
+    max_value = MAX_MAP_ZOOM
+
+    def build_attrs(self, extra_attrs=None, **kwargs):
+        kwargs['min'] = self.min_value
+        kwargs['max'] = self.max_value
+        kwargs['onchange'] = 'this.siblings.innerHTML = this.value;'
+        return super(ZoomRangeWidget, self).build_attrs(extra_attrs=extra_attrs, **kwargs)
+
+    def render(self, name, value, attrs=None):
+        input = super(ZoomRangeWidget, self).render(name, value, attrs=attrs)
+        return format_html('{0}<span class="zoom-value">{1}</span>', input, value)
+
+
 class InlineGeopositionWidget(GeopositionWidget):
     """
     Hide the Google Maps inline for now.
     """
     def format_output(self, rendered_widgets):
-        return u"{0} {1}<br>{2} {3}".format(
-            rendered_widgets[0], _("latitude"),
-            rendered_widgets[1], _("longitude"),
+        return (
+            u'<p class="geoposition">'
+            u' <span>{0}: </span>{1}<br/>'
+            u' <span>{2}: </span>{3}'
+            u'</p>'
+        ).format(
+            _("latitude"), rendered_widgets[0],
+            _("longitude"), rendered_widgets[1],
         )
+
+    class Media:
+        css = {'all': ('fluentcms_googlemaps/admin/geopositionwidget.css',)}
 
 
 class InlineGeopositionField(GeopositionField):
@@ -53,8 +83,8 @@ class MapPlugin(ContentPlugin):
         # and http://www.wolfpil.de/v3/deep-zoom.html for examples
         models.PositiveSmallIntegerField: {
             'min_value': 0,
-            'max_value': 20,
-            'widget': forms.TextInput(attrs={'type': 'range', 'min': 0, 'max': 23}),  # deep zoom.
+            'max_value': MAX_MAP_ZOOM,
+            'widget': ZoomRangeWidget
         }
     }
 
