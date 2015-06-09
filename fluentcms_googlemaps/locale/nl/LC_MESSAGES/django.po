@@ -1,0 +1,132 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-06-09 15:23+0200\n"
+"PO-Revision-Date: 2015-02-09 12:45+0100\n"
+"Last-Translator: Diederik van der Boor <vdboor@edoburu.nl>\n"
+"Language-Team: \n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 1.7.4\n"
+"X-Translated-Using: django-rosetta 0.7.4\n"
+
+#: appsettings.py:12
+msgid "Default"
+msgstr "Standaard"
+
+#: appsettings.py:16
+msgid "Roadmap"
+msgstr "Straten"
+
+#: appsettings.py:17
+msgid "Roadmap with terrain"
+msgstr "Straten met terrein"
+
+#: appsettings.py:18
+msgid "Satellite"
+msgstr "Satelliet"
+
+#: appsettings.py:19
+msgid "Satellite with labels"
+msgstr "Satelliet met labels"
+
+#: content_plugins.py:45
+msgid "latitude"
+msgstr "breedtegraad"
+
+#: content_plugins.py:46
+msgid "longitude"
+msgstr "lengtegraad"
+
+#: content_plugins.py:64 models.py:140
+msgid "Map center"
+msgstr "Middelpunt kaart"
+
+#: content_plugins.py:74
+msgid "Media"
+msgstr ""
+
+#: models.py:19 models.py:72 models.py:132
+msgid "Title"
+msgstr "Titel"
+
+#: models.py:20
+msgid "Marker image"
+msgstr "Markerafbeelding"
+
+#: models.py:23
+msgid "Marker Group"
+msgstr "Plaats group"
+
+#: models.py:24 models.py:134
+msgid "Marker Groups"
+msgstr "Markergroepen"
+
+#: models.py:73
+msgid "Image"
+msgstr "Afbeelding"
+
+#: models.py:74
+msgid "Description"
+msgstr "Omschrijving"
+
+#: models.py:75
+msgid "Group"
+msgstr "Groep"
+
+#: models.py:76
+msgid "Location"
+msgstr "Locatie"
+
+#: models.py:81
+msgid "Marker"
+msgstr "Plaats"
+
+#: models.py:82
+msgid "Markers"
+msgstr "Plaatsen"
+
+#: models.py:133
+msgid "Style"
+msgstr "Stijl"
+
+#: models.py:136
+msgid "Map type"
+msgstr "Kaarttype"
+
+#: models.py:137
+msgid "Default zoom level"
+msgstr "Standaard zoomniveau"
+
+#: models.py:138
+msgid "Minimum zoom level"
+msgstr "Minimaal zoomniveau"
+
+#: models.py:139
+msgid "Maximum zoom level"
+msgstr "Maximaal zoomniveau"
+
+#: models.py:141
+msgid "Group nearby markers into clusters for larger zoom levels"
+msgstr "Verzamel nabijgelegen markers in clusters voor de uitgezoomde weergave."
+
+#: models.py:144
+msgid "Map"
+msgstr "Kaart"
+
+#: models.py:145
+msgid "Maps"
+msgstr "Kaarten"
+
+#: templates/fluentcms_googlemaps/base_map.html:7
+msgid "Back to world-wide view"
+msgstr "Terug naar wereldkaart"
