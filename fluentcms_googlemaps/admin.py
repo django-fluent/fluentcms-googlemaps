@@ -1,6 +1,8 @@
 from django.contrib import admin
+from django.db import models
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
+from fluentcms_googlemaps.widgets import ZoomRangeWidget
 from .models import MarkerGroup, Marker
 
 
@@ -18,6 +20,15 @@ class MarkerGroupAdmin(admin.ModelAdmin):
     title_column.allow_tags = True
     title_column.admin_order_field = 'title'
     title_column.short_description = _("Title")
+
+    formfield_overrides = {
+        # All zoom controls.
+        models.PositiveSmallIntegerField: {
+            'min_value': ZoomRangeWidget.min_value,
+            'max_value': ZoomRangeWidget.max_value,
+            'widget': ZoomRangeWidget
+        }
+    }
 
 
 class MarkerAdmin(admin.ModelAdmin):

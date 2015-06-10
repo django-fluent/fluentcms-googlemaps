@@ -18,6 +18,7 @@ class MarkerGroup(CachedModelMixin, models.Model):
     """
     title = models.CharField(_("Title"), max_length=200)
     marker_image = PluginImageField(_("Marker image"))
+    marker_zoom = models.PositiveSmallIntegerField(_("Zoom level on click"), default=7)
 
     class Meta:
         verbose_name = _("Marker Group")
@@ -54,13 +55,11 @@ class MarkerGroup(CachedModelMixin, models.Model):
                 'url': self.marker_image.url if self.marker_image else None,
                 'width': self.marker_image.width if self.marker_image else 16,
                 'height': self.marker_image.height if self.marker_image else 16,
-                'marker_zoom': 7,
+                'marker_zoom': self.marker_zoom,
             },
             'markers': [
                 marker.to_dict() for marker in self.markers.all()
             ],
-            #click_zoom
-            #cluster_weight
         }
 
 
@@ -102,7 +101,8 @@ class Marker(CachedModelMixin, models.Model):
             'description': self.description,
             'group_id': self.group_id,
             'location': [float(geoposition.latitude), float(geoposition.longitude)],
-            'click_zoom': 7,
+            #'click_zoom': 7,
+            #cluster_weight
         }
 
 

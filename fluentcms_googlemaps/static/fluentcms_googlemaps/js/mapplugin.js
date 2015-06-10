@@ -183,13 +183,13 @@
       gmap.panTo(this.options.defaultCenter);
     },
 
-    onMarkerClick: function MapPlugin_onMarkerClick(event, marker)
+    onMarkerClick: function MapPlugin_onMarkerClick(event, gmarker)
     {
       if(event.stop)
         event.stop();  // no bubbling to the map.
 
-      this.zoomTo(marker.getPosition(), marker._click_zoom || 7);
-      this.loadMarkerDetails(marker, false);
+      this.zoomTo(gmarker.getPosition(), gmarker._click_zoom || 7);
+      this.loadMarkerDetails(gmarker, false);
     },
 
     loadMarkerDetails: function MapPlugin_fetchMarkerDetails(gmarker, move_map)
