@@ -60,9 +60,30 @@
   {
     this.$area = $(area);
     this.gmap = null;
-    this.options = options;
+    this.options = $.extend({}, MapPlugin.DEFAULTS, this.$area.data(), options);
+    this.options.defaultCenter = this.options.defaultCenter || new google.maps.LatLng(this.options.centerLat, this.options.centerLng);
+
     this.init();
   }
+
+  MapPlugin.DEFAULTS = {
+    centerLat: 0,
+    centerLng: 0,
+    zoom: 1,
+    minZoom: 1,
+    maxZoom: 12,    // amount that can be zoomed in.
+    zoomControl: true,
+    streetViewControl: false,
+    mapTypeId: "HYBRID",
+    zoomControlStyle: "SMALL",
+    staticUrl: '/static/',
+    showClusters: false,
+    clusterMinSize: 2,
+    clusterGridSize: 60,
+    clusterMaxZoom: null,  // 1 less then maxZoom
+    clusterStyles: DEFAULT_CLUSTER_STYLES,
+    clusterAverageCenter: false
+  };
 
   MapPlugin.prototype =
   {
@@ -70,38 +91,34 @@
     {
       var map_content = JSON.parse(this.$area.find('script.googlemaps-data').text());
 
-      // Update the settings
-      var center = new google.maps.LatLng(this.options.centerLat || 0, this.options.centerLng || 0);
-      this.options.defaultCenter = this.options.defaultCenter || center;
-
       // Initialize the main map
-      var mapMaxZoom = this.options.maxZoom || 12; // amount that can be zoomed in.
+      var mapMaxZoom = this.options.maxZoom;
       this.gmap = new google.maps.Map(this.$area.find('.googlemaps-widget').get(0), {
         center: this.options.defaultCenter,
-        mapTypeId: google.maps.MapTypeId[this.options.mapTypeId || "HYBRID"],
+        mapTypeId: google.maps.MapTypeId[this.options.mapTypeId],
 
         // nice default settings for compact embedding:
-        zoom: this.options.zoom != null ? this.options.zoom : 1,
-        minZoom: this.options.minZoom != null ? this.options.minZoom : 1,
+        zoom: this.options.zoom,
+        minZoom: this.options.minZoom,
         maxZoom: mapMaxZoom,
-        streetViewControl: this.options.streetViewControl || false,
-        zoomControl: this.options.zoomControl != null ? this.options.zoomControl : true,
+        streetViewControl: this.options.streetViewControl,
+        zoomControl: this.options.zoomControl,
         zoomControlOptions: {
-          style: google.maps.ZoomControlStyle[this.options.zoomControlStyle || "SMALL"]
+          style: google.maps.ZoomControlStyle[this.options.zoomControlStyle]
         }
       });
-      google.maps.event.addListener(this.gmap, 'click', $.proxy(this.onMapClick, this));
-      google.maps.event.addListener(this.gmap, 'zoom_changed', $.proxy(this.onMapZoom, this));
+      google.maps.event.addListener(this.gmap, 'click', $.proxy(this._onMapClick, this));
+      google.maps.event.addListener(this.gmap, 'zoom_changed', $.proxy(this._onMapZoom, this));
 
       // Cluster manager
       if(this.options.showClusters) {
         this.markerCluster = new MarkerClusterer(this.gmap, [], {
-          imagePath: this.options.clusterImagePath || ((this.options.staticUrl || '/static/') + 'fluentcms_googlemaps/img/m'),
-          minimumClusterSize: this.options.clusterMinSize || 2,
-          gridSize: this.options.clusterGridSize || 60,
-          maxZoom: this.options.clusterMaxZoom || mapMaxZoom - 1,  // Always one less or you'll never see markers
-          styles: this.options.clusterStyles || DEFAULT_CLUSTER_STYLES,
-          averageCenter: this.options.clusterAverageCenter || false
+          imagePath: this.options.clusterImagePath || (this.options.staticUrl + 'fluentcms_googlemaps/img/m'),
+          minimumClusterSize: this.options.clusterMinSize,
+          gridSize: this.options.clusterGridSize,
+          maxZoom: this.options.clusterMaxZoom || (mapMaxZoom - 1),  // Always one less or you'll never see markers
+          styles: this.options.clusterStyles,
+          averageCenter: this.options.clusterAverageCenter
         });
         this.markerCluster.setCalculator(_getClusterStyle);
       }
@@ -111,7 +128,7 @@
 
       // Add overlay
       this.$zoomBack = this.$area.find(".zoom-back");
-      this.$zoomBack.hide().find('a').click($.proxy(this.onZoomBackClick, this));
+      this.$zoomBack.hide().find('a').click($.proxy(this._onZoomBackClick, this));
       this.gmap.controls[google.maps.ControlPosition.TOP_LEFT].insertAt(0, this.$zoomBack.get(0));
 
       // Add markers
@@ -160,19 +177,19 @@
       }
     },
 
-    onMapClick: function MapPlugin_onMapClick(event)
+    _onMapClick: function MapPlugin_onMapClick(event)
     {
       // event.latLng
       this.showStartPage();
     },
 
-    onMapZoom: function MapPlugin_onMapZoom(event)
+    _onMapZoom: function MapPlugin_onMapZoom(event)
     {
       var gmap = this.gmap;
       this.$zoomBack[gmap.getZoom() > gmap.minZoom ? 'show' : 'hide']();
     },
 
-    onZoomBackClick: function MapPlugin_onZoomBackClick(event)
+    _onZoomBackClick: function MapPlugin_onZoomBackClick(event)
     {
       event.preventDefault();
       event.target.blur();
@@ -183,16 +200,16 @@
       gmap.panTo(this.options.defaultCenter);
     },
 
-    onMarkerClick: function MapPlugin_onMarkerClick(event, gmarker)
+    _onMarkerClick: function MapPlugin_onMarkerClick(event, gmarker)
     {
       if(event.stop)
         event.stop();  // no bubbling to the map.
 
       this.zoomTo(gmarker.getPosition(), gmarker._click_zoom || 7);
-      this.loadMarkerDetails(gmarker, false);
+      this._loadMarkerDetails(gmarker, false);
     },
 
-    loadMarkerDetails: function MapPlugin_fetchMarkerDetails(gmarker, move_map)
+    _loadMarkerDetails: function MapPlugin_fetchMarkerDetails(gmarker, move_map)
     {
       // URL is optional
       var url = this.options.markerDetailApiUrl;
@@ -244,7 +261,7 @@
         gmarker._click_zoom = marker.click_zoom || icon.marker_zoom;
 
         var outer_this = this;
-        google.maps.event.addListener(gmarker, 'click', function(event){ outer_this.onMarkerClick(event, this); });
+        google.maps.event.addListener(gmarker, 'click', function(event){ outer_this._onMarkerClick(event, this); });
         markers.push(gmarker);
       }
 
@@ -383,21 +400,28 @@
   /**
    * jQuery Plugin definition
    */
-  $.fn.mapPlugin = function(options) {
+  $.fn.mapPlugin = function(option) {
+    // Can handle both {..} options and "methodName" arguments
+    var action = typeof option == 'string' ? option : null;
+    var actionArgs = action ? Array.prototype.splice.call(arguments, 1) : null;
+    var options = action ? {} : option;
+    var plugin_result = (action ? undefined : this);
+
     this.each(function(){
+      // Instantiate data-object on load,
+      // call method if a string was passed.
       var map = $(this).data('mapPlugin');
-      if(map == null) {
-        map = new MapPlugin(this, options);
-        $(this).data('mapPlugin', map);
-      }
+      if(map == null) $(this).data('mapPlugin', (map = new MapPlugin(this, options)));
+      if(action) plugin_result = map[action].apply(map, actionArgs);
     });
-    return this;
+
+    return plugin_result;
   };
 
   $.fn.ready(function(){
     $(".googlemaps-area.auto-enable").each(function() {
       var $this = $(this);
-      $this.mapPlugin($this.data());
+      $this.mapPlugin();
     });
   });
 
