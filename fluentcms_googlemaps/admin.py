@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.utils.html import format_html
+from django.utils.translation import ugettext_lazy as _
 from .models import MarkerGroup, Marker
 
 
@@ -6,6 +8,16 @@ class MarkerGroupAdmin(admin.ModelAdmin):
     """
     Admin for creating collections of markers.
     """
+    list_display = ('title_column',)
+
+    def title_column(self, object):
+        if object.marker_image:
+            return format_html(u'<span style="display: inline-block; min-width: 30px; vertical-align: middle;"><img src="{0}"></span> {1}', object.marker_image.url, object.title)
+        else:
+            return format_html(u'<span style="display: inline-block; min-width: 30px;"></span> {1}', object.title)
+    title_column.allow_tags = True
+    title_column.admin_order_field = 'title'
+    title_column.short_description = _("Title")
 
 
 class MarkerAdmin(admin.ModelAdmin):
