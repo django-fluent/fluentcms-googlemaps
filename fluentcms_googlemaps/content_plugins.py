@@ -45,21 +45,36 @@ class MapPlugin(ContentPlugin):
         }
     }
 
-    @property
-    def frontend_media(self):
-        # Language can differ per request, so this property is dynamic too.
-        return Media(
-            js = (
-                "//maps.google.com/maps/api/js?sensor=false&language=" + get_language(),
-            ) + tuple(appsettings.FLUENTCMS_GOOGLEMAPS_JS),
-            css = appsettings.FLUENTCMS_GOOGLEMAPS_CSS,
-        )
+    def get_frontend_media(self, instance):
+        """
+        Provide FrontendMedia dynamically.
+        It can differ per request and differ per style.
+        :type instance: MapItem
+        """
+        style_options = instance.get_style_options()
+        extra_js = style_options.get('extra_js', None)
+
+        css = appsettings.FLUENTCMS_GOOGLEMAPS_CSS
+        js = ["//maps.google.com/maps/api/js?sensor=false&language=" + get_language()]
+        js.extend(appsettings.FLUENTCMS_GOOGLEMAPS_JS)
+        if extra_js:
+            js.extend(extra_js)
+
+        return Media(js=js, css=css)
 
     def get_render_template(self, request, instance, **kwargs):
         """
         Auto select a rendering template using the "style" attribute
         """
-        return [
+        templates = [
             self.render_template.format(style=instance.style),
             self.render_template.format(style='default'),
         ]
+
+        # Allow defining a custom template in the settings for the chosen style.
+        style_options = instance.get_style_options()
+        template = style_options.get('template', None)
+        if template:
+            templates.insert(0, template)
+
+        return templates

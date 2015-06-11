@@ -145,6 +145,15 @@ class MapItem(ContentItem):
     def __str__(self):
         return force_text(self.title)
 
+    def get_style_options(self):
+        """
+        Provide the options configured in the FLUENTCMS_GOOGLEMAPS_STYLES for the currently chosen style.
+        """
+        try:
+            return next(v for k, v in appsettings.FLUENTCMS_GOOGLEMAPS_STYLES if k == self.style)
+        except StopIteration:
+            return {}
+
     def get_marker_data(self):
         """
         Provide the marker data for the frontend/template

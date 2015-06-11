@@ -1,9 +1,11 @@
 Changelog
 =========
 
-Version 1.0.1
--------------
+Version 1.1
+-----------
 
+* Added search support, fully customizable and overridable.
+* Added new ``FLUENTCMS_GOOGLEMAPS_STYLES`` setting with ``template`` and ``extra_js`` options.
 * Added ``marker_zoom`` setting to clusters
 * Improve visual display of marker groups.
 * Improve jQuery plugin interface, allow method calling with ``.mapPlugin("methodname", args..)``.

@@ -1,0 +1,59 @@
+{% extends "fluentcms_googlemaps/base_map.html" %}
+{% load i18n %}
+{% comment %}
+
+  This template extends the default view, to add an improved column style and layout.
+
+{% endcomment %}
+
+{% block root-class %}map map-stores{% endblock %}
+
+{% block main %}
+  {% block title %}{% endblock %}
+
+  {% block sidebar %}
+    <aside>
+      {% block search-form %}
+        <header>
+          <h2 class="marker-title">{{ instance.title }}</h2>
+          <div class="marker-description">
+            <form class="store-locator-form googlemaps-area-search" action="#" method="get">
+              <div class="control-group control-group-q">
+                <div class="input-append">
+                  <input type="text" name="q" placeholder="{% trans 'Type an address to search...' %}" />
+                  <input type="submit" class="btn" value="&#x1F50E;"/>
+                </div>
+                <p class="help-block"><strong>{% trans "The address was not found." %}</strong></p>
+              </div>
+
+              <div class="did-you-mean">
+                <p>{% trans "Did you mean..." %}</p>
+                <ul></ul>
+              </div>
+            </form>
+          </div>
+        </header>
+      {% endblock %}
+
+      <div class="sidebar-pane home">
+        {% block sidebar-home %}
+        {% endblock %}
+      </div>
+      <div class="sidebar-pane marker-detail">
+        {% block sidebar-detail %}
+          <header>
+            <h2 class="marker-title"></h2>
+            <div class="marker-image"></div>
+          </header>
+          <div class="marker-description"></div>
+        {% endblock %}
+      </div>
+    </aside>
+  {% endblock %}
+
+  {% block googlemaps-area %}
+    <div class="stores-map">
+        {{ block.super }}
+    </div>
+  {% endblock %}
+{% endblock %}

@@ -1,4 +1,4 @@
-(function($) {
++function($) {
 
   var $googleMapsAreas = $('.googlemaps-area');
   if($googleMapsAreas.length == 0) {
@@ -324,6 +324,14 @@
      * The callbacks can be used to implement a user interface,
      * to display errors and handle multiple results.
      *
+     * The onSuccess and onMultipleResults callbacks typically
+     * call $(this).mapPlugin('zoomToResult', result) for a specific result.
+     * When the success callback is not defined, the map zooms by default.
+     *
+     * Other methods of interest are:
+     * - resetView
+     * - showStartPage
+     *
      * @param request The options defined in https://developers.google.com/maps/documentation/javascript/3.exp/reference#GeocoderRequest
      *                Typically {'address': "input text"}
      * @param onSuccess  Function called when there is a single result
@@ -343,8 +351,8 @@
         }
         else {
           if(results.length == 1) {
-            outer_this.zoomToResult(results[0]);
             if(onSuccess != null) onSuccess.call(area, request, results[0]);
+            else  outer_this.zoomToResult(results[0]);
           }
           else {
             if(onMultipleResults != null) onMultipleResults.call(area, request, results);
@@ -496,4 +504,4 @@
   });
 
   // Use same jQuery as geoposition.js when loaded in the admin.
-})(window.django ? window.django.jQuery : window.jQuery);
+}(window.django ? window.django.jQuery : window.jQuery);

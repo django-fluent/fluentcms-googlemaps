@@ -75,6 +75,7 @@ If needed, the includes resources can be changed by using the following settings
     MAP_MARKERWITHLABEL_JS = "fluentcms_googlemaps/vendor/markerwithlabel.js"
     MAP_MARKERCLUSTERER_JS = "fluentcms_googlemaps/vendor/markerclusterer_compiled.js"
     MAPPLUGIN_JS = "fluentcms_googlemaps/js/mapplugin.js"
+    MAPSEARCH_JS = "fluentcms_googlemaps/js/mapsearch.js"
 
     FLUENTCMS_GOOGLEMAPS_JS = (
         MAP_MARKERWITHLABEL_JS,
@@ -90,14 +91,29 @@ HTML code
 ~~~~~~~~~
 
 If needed, the HTML code can be overwritten by redefining ``fluentcms_googlemaps/maps/default.html``.
-Also, you can create additional map styles and define these in ``FLUENTCMS_GOOGLEMAPS_STYLE_CHOICES``.
+Also, you can create additional map styles and define these in ``FLUENTCMS_GOOGLEMAPS_STYLES``.
 The default is::
 
-    FLUENTCMS_GOOGLEMAPS_STYLE_CHOICES = (
-        ('default', _("Default")),
+    FLUENTCMS_GOOGLEMAPS_STYLES = (
+        ('default', {
+            'title': _("Default"),
+            'template': "fluentcms_googlemaps/maps/default.html",
+        }),
+        ('search', {
+            'title': _("Search field"),
+            'template': "fluentcms_googlemaps/maps/search.html",
+            'extra_js': (
+                MAPSEARCH_JS,   # = "fluentcms_googlemaps/js/mapsearch.js" unless MAPSEARCH_JS is redefined
+            ),
+        }),
     )
 
-The given key is used to locale a template named ``fluentcms_googlemaps/maps/{style}.html``.
+By default, the following templates are looked up:
+
+* A explicitly defined ``template`` option in the ``FLUENTCMS_GOOGLEMAPS_STYLES``.
+* A template named: ``fluentcms_googlemaps/maps/{style}.html``.
+* The default; ``fluentcms_googlemaps/maps/default.html``.
+
 
 Contributing
 ------------

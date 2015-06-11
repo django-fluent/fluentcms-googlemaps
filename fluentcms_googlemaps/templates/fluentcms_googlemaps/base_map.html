@@ -1,10 +1,11 @@
 {% load i18n fluentcms_googlemaps_tags %}
 <div class="{% block root-class %}map{% endblock %}">
+  {% block main %}
     {% block title %}<h2>{{ instance.title }}</h2>{% endblock %}
 
     {% block googlemaps-area %}
     <div class="googlemaps-area{% block googlemaps-area-extra-classes %} auto-enable{% endblock %}" {% block map-attributes %}{% data_attrs instance %}{% endblock %}>
-      <div class="zoom-back"><a href="#">{% trans "Back to world-wide view" %}</a></div>
+      <div class="zoom-back"><a href="#">{% block reset-view-text %}{% trans "Back to world-wide view" %}{% endblock %}</a></div>
       <div class="googlemaps-widget"></div>
       <script class="googlemaps-data" type="application/json">
         {{ instance.get_marker_data|to_json }}
@@ -28,4 +29,5 @@
         </div>
       </aside>
     {% endblock %}
+  {% endblock %}
 </div>
