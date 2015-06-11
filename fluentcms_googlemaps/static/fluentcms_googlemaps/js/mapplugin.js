@@ -189,15 +189,10 @@
       this.$zoomBack[gmap.getZoom() > gmap.minZoom ? 'show' : 'hide']();
     },
 
-    _onZoomBackClick: function MapPlugin_onZoomBackClick(event)
-    {
+    _onZoomBackClick: function MapPlugin_onZoomBackClick(event) {
       event.preventDefault();
       event.target.blur();
-      var gmap = this.gmap;
-
-      this.showStartPage();
-      gmap.setZoom(this.options.zoom || gmap.minZoom);
-      gmap.panTo(this.options.defaultCenter);
+      this.resetView();
     },
 
     _onMarkerClick: function MapPlugin_onMarkerClick(event, gmarker)
@@ -268,16 +263,27 @@
       return markers;
     },
 
-    zoomTo: function MapPlugin_zoomTo(latlng, minZoom)
+    /**
+     * Plugin API: Reset the view to the original situation.
+     */
+    resetView: function MapPlugin_reset()
     {
-      if(this.gmap.getZoom() < minZoom)
-        this.gmap.setZoom(minZoom);
-
-      this.gmap.panTo(latlng);
+      this.showStartPage();
+      this.resetZoom();
     },
 
     /**
-     * Show the opening page.
+     * Plugin API: Reset the zoom level to the original situation.
+     */
+    resetZoom: function MapPlugin_zoomReset()
+    {
+      var gmap = this.gmap;
+      gmap.setZoom(this.options.zoom || gmap.minZoom);
+      gmap.panTo(this.options.defaultCenter);
+    },
+
+    /**
+     * Plugin API: Show the opening page.
      */
     showStartPage: function MapPlugin_showStartPage()
     {
@@ -309,6 +315,70 @@
       $marker_detail.find('.marker-title').html(marker.title);
       $marker_detail.find('.marker-description').html(marker.description);
       $marker_detail.find('.marker-image').html(marker.image ? marker.image.html : '');
+    },
+
+    /**
+     * Plugin API: search for an address.
+     *
+     * This finds possible locations based on the request.
+     * The callbacks can be used to implement a user interface,
+     * to display errors and handle multiple results.
+     *
+     * @param request The options defined in https://developers.google.com/maps/documentation/javascript/3.exp/reference#GeocoderRequest
+     *                Typically {'address': "input text"}
+     * @param onSuccess  Function called when there is a single result
+     * @param onMultipleResults  Function called when there are multiple choices.
+     * @param onError Function called when the geocoding failed.
+     */
+    search: function MapPlugin_search(request, onSuccess, onMultipleResults, onError)
+    {
+      if(request && !request.address && !request.components) throw new Error("Invalid geocoding request!");
+
+      var gc = new google.maps.Geocoder();
+      var outer_this = this;
+      var area = this.$area[0];
+      gc.geocode(request, function(results, status) {
+        if(status != 'OK') {
+          if(onError != null) onError.call(area, request, status);
+        }
+        else {
+          if(results.length == 1) {
+            outer_this.zoomToResult(results[0]);
+            if(onSuccess != null) onSuccess.call(area, request, results[0]);
+          }
+          else {
+            if(onMultipleResults != null) onMultipleResults.call(area, request, results);
+          }
+        }
+      });
+    },
+
+    /**
+     * Plugin API: Zoom and pan to a specific location.
+     * @param latlng A `google.maps.LatLng` object.
+     * @param minZoom The minimum zoom level the map should navigate to first.
+     */
+    zoomTo: function MapPlugin_zoomTo(latlng, minZoom)
+    {
+      if(minZoom != null && this.gmap.getZoom() < minZoom)
+        this.gmap.setZoom(minZoom);
+
+      this.gmap.panTo(latlng);
+    },
+
+    /**
+     * Plugin API: Zoom to a Geocoder result
+     * @param result
+     */
+    zoomToResult: function MapPlugin_zoomToGeocoderResult(result)
+    {
+      if (result.geometry.bounds) {
+        this.gmap.fitBounds(result.geometry.bounds);
+      }
+      else {
+        this.gmap.panTo(result.geometry.location);
+        this.gmap.setZoom(18);
+      }
     }
   };
 
