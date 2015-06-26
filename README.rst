@@ -115,6 +115,19 @@ By default, the following templates are looked up:
 * The default; ``fluentcms_googlemaps/maps/default.html``.
 
 
+Importing data
+--------------
+
+Marker data can be imported from CSV files, and receive geocoding too.
+The ``import_markers`` command can be called with custom templates to map the CSV file data to marker fields.
+For example::
+
+    manage.py import_markers /stores.csv  --title='{{Name}}' --group=1 --geocode='{{Address}} {{Zipcode}} {{City}} {{County}}' --geocoder=google --description="<p>{{Address}}<br>{{Zipcode}} {{City}}<br>{% if County == 'NL'%}The Netherlands{% else %}{{County}}{% endif %}</p>"
+
+It's recommended to add ``--dry-run`` first until all fields are properly filled.
+The markers are created in a single transaction at the end of all parsing.
+
+
 Contributing
 ------------
 

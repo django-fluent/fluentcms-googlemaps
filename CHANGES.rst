@@ -5,6 +5,7 @@ Version 1.2
 -----------
 
 * Fixed ``ZoomRangeWidget`` number updating.
+* Added ``manage.py import_markers`` script.
 
 
 Version 1.1
