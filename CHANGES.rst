@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 1.2
+-----------
+
+* Fixed ``ZoomRangeWidget`` number updating.
+
+
 Version 1.1
 -----------
 

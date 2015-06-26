@@ -20,7 +20,7 @@ class ZoomRangeWidget(forms.TextInput):
     def build_attrs(self, extra_attrs=None, **kwargs):
         kwargs['min'] = self.min_value
         kwargs['max'] = self.max_value
-        kwargs['onchange'] = 'this.siblings.innerHTML = this.value;'
+        kwargs['onchange'] = 'this.nextSibling.innerHTML = this.value;'
         return super(ZoomRangeWidget, self).build_attrs(extra_attrs=extra_attrs, **kwargs)
 
     def render(self, name, value, attrs=None):
