@@ -3,4 +3,4 @@ include README.rst
 include LICENSE
 recursive-include fluentcms_googlemaps/locale *.po *.mo
 recursive-include fluentcms_googlemaps/templates *.html
-recursive-include fluentcms_googlemaps/static *.css *.js
+recursive-include fluentcms_googlemaps/static *.css *.js *.png

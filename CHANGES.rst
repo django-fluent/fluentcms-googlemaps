@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 1.2.1
+-------------
+
+* Fixed packaging error with cluster PNG files missing.
+
+
 Version 1.2
 -----------
 
