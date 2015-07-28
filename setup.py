@@ -42,7 +42,8 @@ setup(
     install_requires=[
         'django-fluent-contents>=1.0',   # Need frontend_media support.
         'django-geoposition>=0.2.2',
-        'geopy>=1.10.0',  # for import_markers command
+        'geopy>=1.10.0',                 # for import_markers command
+        'unicodecsv>=0.13.0',            # for import_markers command
     ],
     requires=[
         'Django (>=1.4)',
