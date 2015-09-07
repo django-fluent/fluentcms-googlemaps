@@ -56,7 +56,9 @@ Tip: export NL=$'\n' so you can use $NL in the strings for a newline.
         start_at = options['start_at'] or 0
 
         for filename in args:
-            with codecs.open(filename, encoding='utf-8') as f:
+            # Not passing the utf-8 codec to codecs.open()
+            # the file is opened in ascii, and unicodecsv performs the conversion.
+            with codecs.open(filename, 'rb') as f:
                 csv_data = unicodecsv.DictReader(f, dialect=options['dialect'], delimiter=options['delimiter'], quotechar=options['quotechar'])
                 first = True
                 marker_data = []
