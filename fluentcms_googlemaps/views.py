@@ -1,6 +1,6 @@
 import json
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseBadRequest
 from django.views.generic.detail import BaseDetailView
 from .models import Marker
 
@@ -21,7 +21,10 @@ class MarkerDetailView(BaseDetailView):
             queryset = self.get_queryset()
 
         # Take a GET parameter instead of URLConf variable.
-        pk = self.request.GET[self.pk_url_kwarg]
+        try:
+            pk = long(self.request.GET[self.pk_url_kwarg])
+        except (KeyError, ValueError):
+            return HttpResponseBadRequest("Invalid Parameters")
         queryset = queryset.filter(pk=pk)
 
         try:
