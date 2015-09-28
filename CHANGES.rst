@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 1.2.3 (2015-09-28)
+--------------------------
+
+* Fix 500 error when no ID parameter is passed.
+
+
 Version 1.2.2 (2015-09-07)
 --------------------------
 
