@@ -5,6 +5,7 @@ from django.db import models, migrations
 import geoposition.fields
 import fluent_contents.models.mixins
 import fluent_contents.extensions
+from fluentcms_googlemaps import appsettings
 
 
 class Migration(migrations.Migration):
@@ -19,8 +20,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('contentitem_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='fluent_contents.ContentItem')),
                 ('title', models.CharField(max_length=200, verbose_name='Title')),
-                ('style', models.CharField(max_length=200, verbose_name='Style', choices=[(b'default', 'Default')])),
-                ('map_type_id', models.CharField(default=b'HYBRID', max_length=50, verbose_name='Map type', choices=[(b'ROADMAP', 'Roadmap'), (b'TERRAIN', 'Roadmap with terrain'), (b'SATELLITE', 'Satellite'), (b'HYBRID', 'Satellite with labels')])),
+                ('style', models.CharField(max_length=200, verbose_name='Style', choices=appsettings.FLUENTCMS_GOOGLEMAPS_STYLE_CHOICES)),
+                ('map_type_id', models.CharField(default=b'HYBRID', max_length=50, verbose_name='Map type', choices=appsettings.FLUENTCMS_GOOGLEMAPS_TYPE_CHOICES)),
                 ('zoom', models.PositiveSmallIntegerField(default=1, verbose_name='Default zoom level')),
                 ('min_zoom', models.PositiveSmallIntegerField(default=1, verbose_name='Minimum zoom level')),
                 ('max_zoom', models.PositiveSmallIntegerField(default=12, verbose_name='Maximum zoom level')),
