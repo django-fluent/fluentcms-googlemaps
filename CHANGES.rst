@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 1.2.4 (2015-10-02)
+--------------------------
+
+* Fix Django migrations to avoid unnecessary migrations when settings change.
+
+
 Version 1.2.3 (2015-09-28)
 --------------------------
 
