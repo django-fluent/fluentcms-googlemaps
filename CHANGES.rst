@@ -1,6 +1,12 @@
 Changelog
 =========
 
+Version 1.2.5 (2016-03-17)
+--------------------------
+
+* Optimize appearance at admin page, avoid loading Google Maps API.
+
+
 Version 1.2.4 (2015-10-02)
 --------------------------
 
