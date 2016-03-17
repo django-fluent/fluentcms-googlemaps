@@ -1,4 +1,6 @@
 from django import forms
+from django.forms import Media
+from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 from geoposition.forms import GeopositionWidget
@@ -48,3 +50,9 @@ class InlineGeopositionWidget(GeopositionWidget):
 
     class Media:
         css = {'all': ('fluentcms_googlemaps/admin/geopositionwidget.css',)}
+        js = ()
+
+    @cached_property
+    def media(self):
+        # Avoid the base class media, no need to load google maps in the admin page.
+        return Media(self.Media)
