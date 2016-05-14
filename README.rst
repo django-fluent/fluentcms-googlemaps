@@ -26,6 +26,7 @@ First make sure the project is configured for django-fluent-contents_.
 Then add the following settings::
 
     INSTALLED_APPS += (
+        'geoposition',
         'fluentcms_googlemaps',
     )
 
