@@ -57,7 +57,7 @@ Make sure that all plugin media files are exposed by django-fluent-contents_::
 
 This tag should be placed at the bottom of the page, after all plugins are rendered.
 For more configuration options - e.g. integration with django-compressor -
-see the `template tag documentation <http://django-fluent-contents.readthedocs.org/en/latest/templatetags.html#frontend-media>`_.
+see the `template tag documentation <https://django-fluent-contents.readthedocs.io/en/latest/templatetags.html#frontend-media>`_.
 
 CSS Code
 ~~~~~~~~
