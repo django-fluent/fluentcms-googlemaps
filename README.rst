@@ -30,6 +30,8 @@ Then add the following settings::
         'fluentcms_googlemaps',
     )
 
+    GOOGLE_MAPS_API_KEY = None  # Might be needed to define this.
+
 Add the following to ``urls.py``::
 
     urlpatterns = [

@@ -1,6 +1,13 @@
 Changelog
 =========
 
+Version 1.2.6 (2016-11-25)
+--------------------------
+
+* Added ``GOOGLE_MAPS_API_KEY`` setting support.
+  Allow configuring a Google Maps API key.
+
+
 Version 1.2.5 (2016-03-17)
 --------------------------
 
