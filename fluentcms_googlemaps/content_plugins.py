@@ -53,9 +53,12 @@ class MapPlugin(ContentPlugin):
         """
         style_options = instance.get_style_options()
         extra_js = style_options.get('extra_js', None)
+        googlemaps_js = "//maps.google.com/maps/api/js?sensor=false&language={0}".format(get_language())
+        if appsettings.GOOGLE_MAPS_API_KEY:
+            googlemaps_js = "{0}&key={1}".format(googlemaps_js, appsettings.GOOGLE_MAPS_API_KEY)
 
         css = appsettings.FLUENTCMS_GOOGLEMAPS_CSS
-        js = ["//maps.google.com/maps/api/js?sensor=false&language=" + get_language()]
+        js = [googlemaps_js]
         js.extend(appsettings.FLUENTCMS_GOOGLEMAPS_JS)
         if extra_js:
             js.extend(extra_js)

@@ -19,6 +19,8 @@ FLUENTCMS_GOOGLEMAPS_TYPE_CHOICES = (
 
 ## -- read the values from the settings.
 
+GOOGLE_MAPS_API_KEY = getattr(settings, 'GOOGLE_MAPS_API_KEY', None)
+
 # Allow overriding individual resources
 MAP_MARKERWITHLABEL_JS = getattr(settings, 'MAP_MARKERWITHLABEL_JS', MAP_MARKERWITHLABEL_JS)
 MAP_MARKERCLUSTERER_JS = getattr(settings, 'MAP_MARKERCLUSTERER_JS', MAP_MARKERCLUSTERER_JS)
