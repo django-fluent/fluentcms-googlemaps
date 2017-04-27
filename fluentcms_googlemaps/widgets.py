@@ -19,11 +19,14 @@ class ZoomRangeWidget(forms.TextInput):
     min_value = 0
     max_value = MAX_MAP_ZOOM
 
-    def build_attrs(self, extra_attrs=None, **kwargs):
-        kwargs['min'] = self.min_value
-        kwargs['max'] = self.max_value
-        kwargs['onchange'] = 'this.nextSibling.innerHTML = this.value;'
-        return super(ZoomRangeWidget, self).build_attrs(extra_attrs=extra_attrs, **kwargs)
+    def build_attrs(self, *args, **kwargs):
+        # Signature changed significantly in Django 1.11,
+        # can only edit return value now for reliable compatibility.
+        attrs = super(ZoomRangeWidget, self).build_attrs(*args, **kwargs)
+        attrs['min'] = self.min_value
+        attrs['max'] = self.max_value
+        attrs['onchange'] = 'this.nextSibling.innerHTML = this.value;'
+        return attrs
 
     def render(self, name, value, attrs=None):
         input = super(ZoomRangeWidget, self).render(name, value, attrs=attrs)
