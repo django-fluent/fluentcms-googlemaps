@@ -1,7 +1,7 @@
 Changelog
 =========
 
-Version 1.2.7 (2017-04-27)
+Version 1.2.7 (2017-05-05)
 --------------------------
 
 * Fixed admin error in Djagno 1.11.
