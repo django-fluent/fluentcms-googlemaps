@@ -1,6 +1,13 @@
 Changelog
 =========
 
+Version 1.2.7 (2017-04-27)
+--------------------------
+
+* Fixed admin error in Djagno 1.11.
+  (note that the actual widget still needs updates, both in this package and django-geoposition_).
+
+
 Version 1.2.6 (2016-11-25)
 --------------------------
 
@@ -60,3 +67,6 @@ Version 1.0 (2015-06-09)
 ------------------------
 
 * First release
+
+
+.. _django-geoposition: https://github.com/philippbosch/django-geoposition
