@@ -5,7 +5,7 @@ import json
 from django.core.urlresolvers import NoReverseMatch, reverse
 from django.template import Library
 from django.utils.encoding import force_text
-from django.utils.html import conditional_escape
+from django.utils.html import conditional_escape, format_html
 from django.utils.safestring import mark_safe
 
 register = Library()
@@ -46,10 +46,10 @@ def data_attrs(mapitem):
         pass
 
     data_attrs.update(mapitem.get_map_options())
-    return u''.join([
-        u' data-{0}="{1}"'.format(k.replace('_', '-'), _data_value(v))
+    return mark_safe(u''.join([
+        format_html(u' data-{0}="{1}"', k.replace('_', '-'), _data_value(v))
         for k, v in data_attrs.items()
-    ])
+    ]))
 
 
 def _data_value(value):
