@@ -14,7 +14,7 @@ before_install:
 - pip install codecov
 install:
 - pip install -U pip wheel
-- travis_retry pip install $DJANGO -e .
+- travis_retry pip install $DJANGO Pillow -e .
 script:
 - coverage run --source=fluentcms_googlemaps runtests.py
 after_success:
