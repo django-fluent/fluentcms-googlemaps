@@ -5,6 +5,7 @@ import unicodecsv
 from django.core.management import BaseCommand, CommandError
 from django.db import transaction
 from django.template import Context, Template, TemplateSyntaxError
+from django.utils.encoding import force_text
 from geopy import get_geocoder_for_service
 from geopy.exc import GeopyError
 
@@ -42,9 +43,11 @@ Tip: export NL=$'\n' so you can use $NL in the strings for a newline.
         parser.add_argument('--geocoder', default='google')
         parser.add_argument('--start-at', default=0, action='store', type=int)
         parser.add_argument('--dry-run', action='store_true', default=False)
+        parser.add_argument('csv-files', nargs='+')
 
     def handle(self, *args, **options):
-        if not args:
+        print(options)
+        if not options.get('csv-files'):
             raise CommandError("Expected CSV filename to import")
 
         try:
@@ -55,7 +58,7 @@ Tip: export NL=$'\n' so you can use $NL in the strings for a newline.
         dry_run = options['dry_run']
         start_at = options['start_at'] or 0
 
-        for filename in args:
+        for filename in options['csv-files']:
             # Not passing the utf-8 codec to codecs.open()
             # the file is opened in ascii, and unicodecsv performs the conversion.
             with codecs.open(filename, 'rb') as f:
@@ -140,7 +143,7 @@ def _format_field(options, name, data, allow_html=False, allow_empty=False):
     if allow_html:
         return result
     else:
-        return unicode(result)
+        return force_text(result)
 
 
 def _get_group(group_id):

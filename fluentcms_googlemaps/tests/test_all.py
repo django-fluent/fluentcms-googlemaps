@@ -1,4 +1,7 @@
+import os
+
 from django.contrib.auth.models import User
+from django.core.management import call_command
 from django.test import TestCase
 from django.core.urlresolvers import reverse
 from fluent_contents.tests.factories import create_content_item
@@ -48,3 +51,13 @@ class MapTests(TestCase):
         self.client.login(username='map-admin', password='testtest')  # .force_login() exists as of Django 1.9
         response = self.client.get(reverse('admin:fluentcms_googlemaps_marker_change', args=(marker.pk,)))
         self.assertContains(response, 'Marker 1')
+
+    def test_import_markers(self):
+        group = MarkerGroup.objects.create(pk=2, title="Group 2")
+        call_command(
+            'import_markers',
+            os.path.join(os.path.dirname(__file__), 'test.csv'),
+        )
+        self.assertEqual(Marker.objects.count(), 2)
+        markers = sorted(Marker.objects.values_list('title', flat=True))
+        self.assertEqual(markers, ['Test 1', 'Test 2'])
