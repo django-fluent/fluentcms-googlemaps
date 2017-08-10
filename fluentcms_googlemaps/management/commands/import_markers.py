@@ -1,6 +1,5 @@
 import codecs
 import unicodecsv
-from optparse import make_option
 from django.core.management import BaseCommand, CommandError
 from django.db import transaction
 from django.template import Template, Context, TemplateSyntaxError
@@ -29,19 +28,19 @@ For example:
 
 Tip: export NL=$'\n' so you can use $NL in the strings for a newline.
 """
-    option_list = BaseCommand.option_list + (
-        make_option('--title', action='store', default='{{ name }}', help="A template that fills the name field"),
-        make_option('--group', default='{{ group }}', help='A template that fills the group field'),
-        make_option('--geocode', default='{{ address }}', help='A template that fills the address for Geocoding'),
-        make_option('--description', default='{{ description }}', help='A template that fills the description field'),
-        make_option('--image', default='', help='A template that fills the image field'),
-        make_option('--dialect', default='excel'),
-        make_option('--delimiter', default=','),
-        make_option('--quotechar', default='"'),
-        make_option('--geocoder', default='google'),
-        make_option('--start-at', default=0, action='store', type='int'),
-        make_option('--dry-run', action='store_true', default=False),
-    )
+
+    def add_arguments(self, parser):
+        parser.add_argument('--title', action='store', default='{{ name }}', help="A template that fills the name field")
+        parser.add_argument('--group', default='{{ group }}', help='A template that fills the group field')
+        parser.add_argument('--geocode', default='{{ address }}', help='A template that fills the address for Geocoding')
+        parser.add_argument('--description', default='{{ description }}', help='A template that fills the description field')
+        parser.add_argument('--image', default='', help='A template that fills the image field')
+        parser.add_argument('--dialect', default='excel')
+        parser.add_argument('--delimiter', default=',')
+        parser.add_argument('--quotechar', default='"')
+        parser.add_argument('--geocoder', default='google')
+        parser.add_argument('--start-at', default=0, action='store', type=int)
+        parser.add_argument('--dry-run', action='store_true', default=False)
 
     def handle(self, *args, **options):
         if not args:
