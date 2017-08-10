@@ -1,3 +1,12 @@
+.. image:: https://img.shields.io/travis/edoburu/fluentcms-googlemaps/master.svg?branch=master
+    :target: http://travis-ci.org/edoburu/fluentcms-googlemaps
+.. image:: https://img.shields.io/pypi/v/fluentcms-googlemaps.svg
+    :target: https://pypi.python.org/pypi/fluentcms-googlemaps/
+.. image:: https://img.shields.io/pypi/l/fluentcms-googlemaps.svg
+    :target: https://pypi.python.org/pypi/fluentcms-googlemaps/
+.. image:: https://img.shields.io/codecov/c/github/edoburu/fluentcms-googlemaps/master.svg
+    :target: https://codecov.io/github/edoburu/fluentcms-googlemaps?branch=master
+
 fluentcms-googlemaps
 ====================
 
@@ -24,6 +33,7 @@ First install the module, preferably in a virtual environment. It can be install
     pip -e git+https://github.com/philippbosch/django-geoposition.git@django-1.11#egg=django-geoposition
 
 Since django-geoposition_ doesn't have a Django 1.11 compatible release yet.
+
 
 Backend Configuration
 ---------------------
