@@ -137,4 +137,5 @@ Contributing
 If you like this module, forked it, or would like to improve it, please let us know!
 Pull requests are welcome too. :-)
 
+.. _django-geoposition: https://github.com/philippbosch/django-geoposition
 .. _django-fluent-contents: https://github.com/edoburu/django-fluent-contents
