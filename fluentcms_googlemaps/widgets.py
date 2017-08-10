@@ -40,6 +40,7 @@ class InlineGeopositionWidget(GeopositionWidget):
     """
     Hide the Google Maps inline for now.
     """
+
     def format_output(self, rendered_widgets):
         return (
             u'<p class="geoposition">'

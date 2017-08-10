@@ -38,11 +38,11 @@ class MarkerGroup(CachedModelMixin, models.Model):
 
     @property
     def anchor(self):
-        return (0,0)
+        return (0, 0)
 
     @property
     def origin(self):
-        return (0,0)
+        return (0, 0)
 
     def to_dict(self):
         """
@@ -102,7 +102,7 @@ class Marker(CachedModelMixin, models.Model):
             'group_id': self.group_id,
             'location': [float(geoposition.latitude), float(geoposition.longitude)],
             #'click_zoom': 7,
-            #cluster_weight
+            # cluster_weight
         }
 
 
@@ -186,7 +186,7 @@ class MapItem(ContentItem):
             #cluster_image_path: '/static/fluentcms_googlemaps/img/m'
             #cluster_grid_size: 60
             #cluster_min_size: 2
-            #cluster_max_zoom  (default max_zoom -1)
-            #cluster_styles: {..}
+            # cluster_max_zoom  (default max_zoom -1)
+            # cluster_styles: {..}
             #cluster_average_center: False
         }

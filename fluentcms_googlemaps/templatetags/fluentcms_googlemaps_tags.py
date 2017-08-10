@@ -19,6 +19,7 @@ _js_escapes = {
 # Add every ASCII character with a value less than 32.
 _js_escapes.update((ord('%c' % z), '\\u%04X' % z) for z in range(32))
 
+
 def escapejs_json(value):
     """Hex encodes characters for use in JavaScript strings."""
     return mark_safe(force_text(value).translate(_js_escapes))
@@ -43,9 +44,11 @@ def data_attrs(mapitem):
         pass
 
     data_attrs.update(mapitem.get_map_options())
-    return u''.join([u' data-{0}="{1}"'.format(k.replace('_', '-'), _data_value(v))
-         for k, v in data_attrs.items()
+    return u''.join([
+        u' data-{0}="{1}"'.format(k.replace('_', '-'), _data_value(v))
+        for k, v in data_attrs.items()
     ])
+
 
 def _data_value(value):
     if isinstance(value, bool):

@@ -14,8 +14,7 @@ class Command(BaseCommand):
     Import markers from a CSV file
     """
     args = "csv-file, ..."
-    help = \
-r"""
+    help = r"""
 Import CSV data as markers.
 
 The data can be converted into the database by using the options.
@@ -127,7 +126,6 @@ Tip: export NL=$'\n' so you can use $NL in the strings for a newline.
                 self.stdout.write(u"Done")
 
 
-
 def _format_field(options, name, data, allow_html=False, allow_empty=False):
     template = options[name]
     try:
@@ -141,6 +139,7 @@ def _format_field(options, name, data, allow_html=False, allow_empty=False):
         return result
     else:
         return unicode(result)
+
 
 def _get_group(group_id):
     try:

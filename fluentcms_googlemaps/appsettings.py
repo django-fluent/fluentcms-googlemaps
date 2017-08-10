@@ -17,7 +17,7 @@ FLUENTCMS_GOOGLEMAPS_TYPE_CHOICES = (
 )
 
 
-## -- read the values from the settings.
+# -- read the values from the settings.
 
 GOOGLE_MAPS_API_KEY = getattr(settings, 'GOOGLE_MAPS_API_KEY', None)
 
