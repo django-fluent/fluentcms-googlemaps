@@ -1,5 +1,6 @@
 from __future__ import unicode_literals
 
+import sys
 import json
 
 from django.core.exceptions import ObjectDoesNotExist
@@ -7,6 +8,9 @@ from django.http import Http404, HttpResponse
 from django.views.generic.detail import BaseDetailView
 
 from .models import Marker
+
+if sys.version_info[0] >= 3:
+    long = int
 
 
 class MarkerDetailView(BaseDetailView):
