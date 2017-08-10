@@ -17,13 +17,22 @@ First install the module, preferably in a virtual environment. It can be install
 
     pip install fluentcms-googlemaps
 
+**NOTE:** On Django 1.11, you'll have to install the following package first:
+
+.. code-block:: bash
+
+    pip -e git+https://github.com/philippbosch/django-geoposition.git@django-1.11#egg=django-geoposition
+
+Since django-geoposition_ doesn't have a Django 1.11 compatible release yet.
 
 Backend Configuration
 ---------------------
 
 First make sure the project is configured for django-fluent-contents_.
 
-Then add the following settings::
+Then add the following settings:
+
+.. code-block:: python
 
     INSTALLED_APPS += (
         'geoposition',
@@ -32,7 +41,9 @@ Then add the following settings::
 
     GOOGLE_MAPS_API_KEY = None  # Might be needed to define this.
 
-Add the following to ``urls.py``::
+Add the following to ``urls.py``:
+
+.. code-block:: python
 
     urlpatterns = [
         ...
@@ -40,7 +51,9 @@ Add the following to ``urls.py``::
         url(r'^api/googlemaps/', include('fluentcms_googlemaps.urls')),
     ]
 
-The database tables can be created afterwards::
+The database tables can be created afterwards:
+
+.. code-block:: bash
 
     ./manage.py migrate
 
@@ -51,7 +64,9 @@ and ``PlaceholderEditorAdmin`` admin screens.
 Frontend Configuration
 ----------------------
 
-Make sure that all plugin media files are exposed by django-fluent-contents_::
+Make sure that all plugin media files are exposed by django-fluent-contents_:
+
+.. code-block:: html+django
 
     {% load fluent_contents_tags %}
 
@@ -73,7 +88,9 @@ No configuration is required for the JavaScript integration.
 
 By default, the plugin includes all required JavaScript code.
 
-If needed, the includes resources can be changed by using the following settings::
+If needed, the includes resources can be changed by using the following settings:
+
+.. code-block:: python
 
     MAP_MARKERWITHLABEL_JS = "fluentcms_googlemaps/vendor/markerwithlabel.js"
     MAP_MARKERCLUSTERER_JS = "fluentcms_googlemaps/vendor/markerclusterer_compiled.js"
@@ -95,7 +112,9 @@ HTML code
 
 If needed, the HTML code can be overwritten by redefining ``fluentcms_googlemaps/maps/default.html``.
 Also, you can create additional map styles and define these in ``FLUENTCMS_GOOGLEMAPS_STYLES``.
-The default is::
+The default is:
+
+.. code-block:: python
 
     FLUENTCMS_GOOGLEMAPS_STYLES = (
         ('default', {
@@ -123,7 +142,9 @@ Importing data
 
 Marker data can be imported from CSV files, and receive geocoding too.
 The ``import_markers`` command can be called with custom templates to map the CSV file data to marker fields.
-For example::
+For example:
+
+.. code-block:: bash
 
     manage.py import_markers /stores.csv  --title='{{Name}}' --group=1 --geocode='{{Address}} {{Zipcode}} {{City}} {{County}}' --geocoder=google --description="<p>{{Address}}<br>{{Zipcode}} {{City}}<br>{% if County == 'NL'%}The Netherlands{% else %}{{County}}{% endif %}</p>"
 
