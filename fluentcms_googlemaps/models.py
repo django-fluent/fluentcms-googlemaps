@@ -1,13 +1,15 @@
 from django.conf import settings
+from django.db import models
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 from django.utils.six import python_2_unicode_compatible
-from django.db import models
 from django.utils.translation import ugettext_lazy as _
-from geoposition.fields import GeopositionField
-from fluent_contents.models.mixins import CachedModelMixin
-from fluent_contents.extensions import PluginImageField, PluginHtmlField
+
+from fluent_contents.extensions import PluginHtmlField, PluginImageField
 from fluent_contents.models import ContentItem
+from fluent_contents.models.mixins import CachedModelMixin
+from geoposition.fields import GeopositionField
+
 from . import appsettings
 
 

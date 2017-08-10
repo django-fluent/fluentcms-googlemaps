@@ -1,6 +1,8 @@
 from __future__ import unicode_literals
+
 import json
-from django.core.urlresolvers import reverse, NoReverseMatch
+
+from django.core.urlresolvers import NoReverseMatch, reverse
 from django.template import Library
 from django.utils.encoding import force_text
 from django.utils.html import conditional_escape

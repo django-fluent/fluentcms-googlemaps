@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
-import geoposition.fields
-import fluent_contents.models.mixins
+from django.db import migrations, models
+
 import fluent_contents.extensions
+import fluent_contents.models.mixins
+import geoposition.fields
+
 from fluentcms_googlemaps import appsettings
 
 

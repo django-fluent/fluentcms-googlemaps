@@ -2,8 +2,9 @@ from django.contrib import admin
 from django.db import models
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
-from fluentcms_googlemaps.widgets import ZoomRangeWidget
-from .models import MarkerGroup, Marker
+
+from .widgets import ZoomRangeWidget
+from .models import Marker, MarkerGroup
 
 
 class MarkerGroupAdmin(admin.ModelAdmin):

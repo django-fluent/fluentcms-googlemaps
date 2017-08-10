@@ -3,6 +3,7 @@ from django.forms import Media
 from django.utils.functional import cached_property
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
+
 from geoposition.forms import GeopositionWidget
 
 # Standard zoom ends at 20, but some satellite image pushes it even further.

@@ -1,13 +1,15 @@
 from django.db import models
 from django.forms import Media
-from django.utils.translation import ugettext_lazy as _, get_language
+from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import get_language
 
 from fluent_contents.extensions import ContentPlugin, plugin_pool
 from fluent_contents.forms import ContentItemForm
 from geoposition.forms import GeopositionField
+
 from . import appsettings
-from fluentcms_googlemaps.widgets import ZoomRangeWidget, InlineGeopositionWidget, MAX_MAP_ZOOM
 from .models import MapItem
+from .widgets import InlineGeopositionWidget, ZoomRangeWidget
 
 
 class InlineGeopositionField(GeopositionField):

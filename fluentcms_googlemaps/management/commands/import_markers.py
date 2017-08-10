@@ -1,12 +1,14 @@
 import codecs
+import time
+
 import unicodecsv
 from django.core.management import BaseCommand, CommandError
 from django.db import transaction
-from django.template import Template, Context, TemplateSyntaxError
-from fluentcms_googlemaps.models import MarkerGroup, Marker
+from django.template import Context, Template, TemplateSyntaxError
 from geopy import get_geocoder_for_service
 from geopy.exc import GeopyError
-import time
+
+from fluentcms_googlemaps.models import Marker, MarkerGroup
 
 
 class Command(BaseCommand):
