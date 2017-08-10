@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 from django import forms
 from django.forms import Media
 from django.utils.functional import cached_property
