@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.test import TestCase
-from django.urls import reverse
+from django.core.urlresolvers import reverse
 from fluent_contents.tests.factories import create_content_item
 from fluent_contents.tests.utils import render_content_items
 from geoposition import Geoposition
@@ -27,6 +27,13 @@ class MapTests(TestCase):
         self.assertTrue(output.html.count('<script '), 1)
         self.assertTrue(output.html.count('data-center-lng="5"'), 1)
         self.assertTrue(output.html.count('data-center-lat="3"'), 1)
+
+    def test_api_view(self):
+        marker = Marker.objects.create(title="Marker 1", location=Geoposition(52, 6))
+        url = reverse('fluentcms-googlemaps-marker-detail')
+        response = self.client.get("{url}?id={id}".format(url=url, id=marker.pk))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, 'Marker 1')
 
     def test_markergroup_admin(self):
         group = MarkerGroup.objects.create(title="Group 1", marker_image='')
