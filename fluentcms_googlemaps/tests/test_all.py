@@ -38,13 +38,13 @@ class MapTests(TestCase):
     def test_markergroup_admin(self):
         group = MarkerGroup.objects.create(title="Group 1", marker_image='')
         admin = User.objects.create_superuser('map-admin', 'admin@example.com', 'testtest')
-        self.client.force_login(admin)
+        self.client.login(username='map-admin', password='testtest')  # .force_login() exists as of Django 1.9
         response = self.client.get(reverse('admin:fluentcms_googlemaps_markergroup_change', args=(group.pk,)))
         self.assertContains(response, 'zoomrangewidget.css')
 
     def test_marker_admin(self):
         marker = Marker.objects.create(title="Marker 1", location=Geoposition(52, 6))
         admin = User.objects.create_superuser('map-admin', 'admin@example.com', 'testtest')
-        self.client.force_login(admin)
+        self.client.login(username='map-admin', password='testtest')  # .force_login() exists as of Django 1.9
         response = self.client.get(reverse('admin:fluentcms_googlemaps_marker_change', args=(marker.pk,)))
         self.assertContains(response, 'Marker 1')
