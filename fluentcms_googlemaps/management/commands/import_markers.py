@@ -46,7 +46,6 @@ Tip: export NL=$'\n' so you can use $NL in the strings for a newline.
         parser.add_argument('csv-files', nargs='+')
 
     def handle(self, *args, **options):
-        print(options)
         if not options.get('csv-files'):
             raise CommandError("Expected CSV filename to import")
 
