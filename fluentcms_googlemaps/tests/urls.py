@@ -4,6 +4,6 @@ from django.contrib import admin
 import fluentcms_googlemaps.urls
 
 urlpatterns = [
-    url('^admin/', include(admin.site.urls)),
+    url('^admin/', admin.site.urls),
     url(r'^api/googlemaps/', include(fluentcms_googlemaps.urls)),
 ]

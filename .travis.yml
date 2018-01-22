@@ -9,12 +9,12 @@ env:
 - PACKAGES="django>=1.9.0,<1.10.0 django-polymorphic<2.0"
 - PACKAGES="django>=1.10.0,<1.11.0 django-polymorphic<2.0"
 - PACKAGES="django>=1.11.0,<1.12.0"
+- PACKAGES="django>=2.0,<2.1"
 before_install:
 - pip install -U pip wheel setuptools
 - pip install codecov
 install:
-- pip install -U pip wheel
-- travis_retry pip install $PACKAGES Pillow -e .
+- pip install $PACKAGES Pillow -e .
 script:
 - coverage run --source=fluentcms_googlemaps runtests.py
 after_success:

@@ -61,6 +61,10 @@ if not settings.configured:
             'django.contrib.sessions.middleware.SessionMiddleware',
             'django.contrib.auth.middleware.AuthenticationMiddleware',
         ),
+        MIDDLEWARE=(
+            'django.contrib.sessions.middleware.SessionMiddleware',
+            'django.contrib.auth.middleware.AuthenticationMiddleware',
+        ),
         FLUENT_CONTENTS_CACHE_OUTPUT=False,
         TEST_RUNNER='django.test.runner.DiscoverRunner',
         ROOT_URLCONF='fluentcms_googlemaps.tests.urls',

@@ -3,10 +3,14 @@ import os
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.test import TestCase
-from django.core.urlresolvers import reverse
 from fluent_contents.tests.factories import create_content_item
 from fluent_contents.tests.utils import render_content_items
 from geoposition import Geoposition
+
+try:
+    from django.urls import reverse  # Django 1.10+
+except ImportError:
+    from django.core.urlresolvers import reverse
 
 from fluentcms_googlemaps.models import MapItem, Marker, MarkerGroup
 
