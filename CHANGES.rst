@@ -1,7 +1,16 @@
 Changelog
 =========
 
-Version 1.3 (2018-08-10)
+Version 1.4 (2018-01-22)
+------------------------
+
+* Fixed startup errors on Django 2.0.
+
+Note that django-geoposition_ doesn't support Django 2.0 yet,
+hence this package is not yet released as "v2.0".
+
+
+Version 1.3 (2017-08-10)
 ------------------------
 
 * Fixed ``import_markers`` usage for Django 1.10
