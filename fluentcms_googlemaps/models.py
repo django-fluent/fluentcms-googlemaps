@@ -75,7 +75,7 @@ class Marker(CachedModelMixin, models.Model):
     title = models.CharField(_("Title"), max_length=200)
     image = PluginImageField(_("Image"), blank=True)
     description = PluginHtmlField(_("Description"), blank=True)
-    group = models.ForeignKey(MarkerGroup, related_name='markers', verbose_name=_("Group"), blank=True, null=True)
+    group = models.ForeignKey(MarkerGroup, on_delete=models.CASCADE, related_name='markers', verbose_name=_("Group"), blank=True, null=True)
     location = GeopositionField(_("Location"))  # TODO: use different package?
 
     class Meta:

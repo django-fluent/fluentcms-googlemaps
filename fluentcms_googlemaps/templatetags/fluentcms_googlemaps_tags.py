@@ -2,11 +2,15 @@ from __future__ import unicode_literals
 
 import json
 
-from django.core.urlresolvers import NoReverseMatch, reverse
 from django.template import Library
 from django.utils.encoding import force_text
 from django.utils.html import conditional_escape, format_html
 from django.utils.safestring import mark_safe
+
+try:
+    from django.urls import NoReverseMatch, reverse
+except ImportError:
+    from django.core.urlresolvers import NoReverseMatch, reverse
 
 register = Library()
 

@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='MapItem',
             fields=[
-                ('contentitem_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='fluent_contents.ContentItem')),
+                ('contentitem_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='fluent_contents.ContentItem', on_delete=models.CASCADE)),
                 ('title', models.CharField(max_length=200, verbose_name='Title')),
                 ('style', models.CharField(max_length=200, verbose_name='Style', choices=appsettings.FLUENTCMS_GOOGLEMAPS_STYLE_CHOICES)),
                 ('map_type_id', models.CharField(default='HYBRID', max_length=50, verbose_name='Map type', choices=appsettings.FLUENTCMS_GOOGLEMAPS_TYPE_CHOICES)),
@@ -71,7 +71,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='marker',
             name='group',
-            field=models.ForeignKey(related_name='markers', verbose_name='Group', blank=True, to='fluentcms_googlemaps.MarkerGroup', null=True),
+            field=models.ForeignKey(related_name='markers', verbose_name='Group', blank=True, to='fluentcms_googlemaps.MarkerGroup', on_delete=models.CASCADE, null=True),
             preserve_default=True,
         ),
         migrations.AddField(
