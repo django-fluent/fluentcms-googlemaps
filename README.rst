@@ -1,11 +1,11 @@
-.. image:: https://img.shields.io/travis/edoburu/fluentcms-googlemaps/master.svg?branch=master
-    :target: http://travis-ci.org/edoburu/fluentcms-googlemaps
+.. image:: https://img.shields.io/travis/django-fluent/fluentcms-googlemaps/master.svg?branch=master
+    :target: http://travis-ci.org/django-fluent/fluentcms-googlemaps
 .. image:: https://img.shields.io/pypi/v/fluentcms-googlemaps.svg
     :target: https://pypi.python.org/pypi/fluentcms-googlemaps/
 .. image:: https://img.shields.io/pypi/l/fluentcms-googlemaps.svg
     :target: https://pypi.python.org/pypi/fluentcms-googlemaps/
-.. image:: https://img.shields.io/codecov/c/github/edoburu/fluentcms-googlemaps/master.svg
-    :target: https://codecov.io/github/edoburu/fluentcms-googlemaps?branch=master
+.. image:: https://img.shields.io/codecov/c/github/django-fluent/fluentcms-googlemaps/master.svg
+    :target: https://codecov.io/github/django-fluent/fluentcms-googlemaps?branch=master
 
 fluentcms-googlemaps
 ====================
@@ -169,4 +169,4 @@ If you like this module, forked it, or would like to improve it, please let us k
 Pull requests are welcome too. :-)
 
 .. _django-geoposition: https://github.com/philippbosch/django-geoposition
-.. _django-fluent-contents: https://github.com/edoburu/django-fluent-contents
+.. _django-fluent-contents: https://github.com/django-fluent/django-fluent-contents
