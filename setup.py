@@ -39,14 +39,14 @@ setup(
     license='Apache 2.0',
 
     install_requires=[
-        'django-fluent-contents>=1.0',   # Need frontend_media support.
+        'django-fluent-contents>=2.0',   # Need frontend_media support.
         'django-geoposition>=0.2.2',
         'django-wysiwyg>=0.7.1',         # for admin text
         'geopy>=1.10.0',                 # for import_markers command
         'unicodecsv>=0.13.0',            # for import_markers command
     ],
     requires=[
-        'Django (>=1.4)',
+        'Django (>=1.10)',
     ],
 
     description='Google Maps widget for django-fluent-contents',
@@ -76,9 +76,9 @@ setup(
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
         'Framework :: Django',
-        'Framework :: Django :: 1.8',
-        'Framework :: Django :: 1.9',
         'Framework :: Django :: 1.10',
+        'Framework :: Django :: 1.11',
+        'Framework :: Django :: 2.0',
         'Topic :: Internet :: WWW/HTTP',
         'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
         'Topic :: Software Development :: Libraries :: Python Modules',

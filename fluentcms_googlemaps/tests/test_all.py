@@ -3,14 +3,10 @@ import os
 from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.test import TestCase
+from django.urls import reverse
 from fluent_contents.tests.factories import create_content_item
 from fluent_contents.tests.utils import render_content_items
 from geoposition import Geoposition
-
-try:
-    from django.urls import reverse  # Django 1.10+
-except ImportError:
-    from django.core.urlresolvers import reverse
 
 from fluentcms_googlemaps.models import MapItem, Marker, MarkerGroup
 
@@ -45,14 +41,14 @@ class MapTests(TestCase):
     def test_markergroup_admin(self):
         group = MarkerGroup.objects.create(title="Group 1", marker_image='')
         admin = User.objects.create_superuser('map-admin', 'admin@example.com', 'testtest')
-        self.client.login(username='map-admin', password='testtest')  # .force_login() exists as of Django 1.9
+        self.client.force_login(admin)
         response = self.client.get(reverse('admin:fluentcms_googlemaps_markergroup_change', args=(group.pk,)))
         self.assertContains(response, 'zoomrangewidget.css')
 
     def test_marker_admin(self):
         marker = Marker.objects.create(title="Marker 1", location=Geoposition(52, 6))
         admin = User.objects.create_superuser('map-admin', 'admin@example.com', 'testtest')
-        self.client.login(username='map-admin', password='testtest')  # .force_login() exists as of Django 1.9
+        self.client.force_login(admin)
         response = self.client.get(reverse('admin:fluentcms_googlemaps_marker_change', args=(marker.pk,)))
         self.assertContains(response, 'Marker 1')
 
