@@ -1,6 +1,7 @@
 import codecs
 import time
 
+import geopy.geocoders
 import unicodecsv
 from django.core.management import BaseCommand, CommandError
 from django.db import transaction
@@ -10,6 +11,8 @@ from geopy import get_geocoder_for_service
 from geopy.exc import GeopyError
 
 from fluentcms_googlemaps.models import Marker, MarkerGroup
+
+geopy.geocoders.options.default_user_agent = "fluentcms_googlemaps"
 
 
 class Command(BaseCommand):
@@ -40,7 +43,7 @@ Tip: export NL=$'\n' so you can use $NL in the strings for a newline.
         parser.add_argument('--dialect', default='excel')
         parser.add_argument('--delimiter', default=',')
         parser.add_argument('--quotechar', default='"')
-        parser.add_argument('--geocoder', default='google')
+        parser.add_argument('--geocoder', default='nominatim')
         parser.add_argument('--start-at', default=0, action='store', type=int)
         parser.add_argument('--dry-run', action='store_true', default=False)
         parser.add_argument('csv-files', nargs='+')
