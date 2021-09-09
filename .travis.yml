@@ -1,23 +1,20 @@
-language: python
 sudo: false
+language: python
 cache: pip
 python:
 - '3.6'
-- '3.4'
-- '2.7'
+- '3.7'
+- '3.8'
 env:
-- PACKAGES="django>=1.10,<1.11 django-polymorphic<2.0"
-- PACKAGES="django>=1.11,<1.12"
-- PACKAGES="django>=2.0,<2.1"
-matrix:
-  exclude:
-  - python: '2.7'
-    env: PACKAGES="django>=2.0,<2.1"
+- DJANGO="2.2.*"
+- DJANGO="3.0.*"
+- DJANGO="3.1.*"
 before_install:
 - pip install -U pip wheel setuptools
 - pip install codecov
 install:
-- pip install $PACKAGES Pillow -e .
+- pip install -U pip wheel setuptools
+- pip install -q "django==$DJANGO" Pillow -e .
 script:
 - coverage run --source=fluentcms_googlemaps runtests.py
 after_success:

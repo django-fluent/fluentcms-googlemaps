@@ -1,10 +1,8 @@
-from __future__ import unicode_literals
-
 from django import forms
 from django.forms import Media
 from django.utils.functional import cached_property
 from django.utils.html import format_html
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from geoposition.forms import GeopositionWidget
 
@@ -25,14 +23,14 @@ class ZoomRangeWidget(forms.TextInput):
     def build_attrs(self, *args, **kwargs):
         # Signature changed significantly in Django 1.11,
         # can only edit return value now for reliable compatibility.
-        attrs = super(ZoomRangeWidget, self).build_attrs(*args, **kwargs)
+        attrs = super().build_attrs(*args, **kwargs)
         attrs['min'] = self.min_value
         attrs['max'] = self.max_value
         attrs['onchange'] = 'this.nextSibling.innerHTML = this.value;'
         return attrs
 
     def render(self, name, value, *args, **kwargs):
-        input = super(ZoomRangeWidget, self).render(name, value, *args, **kwargs)
+        input = super().render(name, value, *args, **kwargs)
         return format_html('{0}<span class="zoom-value">{1}</span>', input, value)
 
     class Media:

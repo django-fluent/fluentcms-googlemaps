@@ -1,5 +1,3 @@
-from __future__ import unicode_literals
-
 import sys
 import json
 
@@ -8,9 +6,6 @@ from django.http import Http404, HttpResponse
 from django.views.generic.detail import BaseDetailView
 
 from .models import Marker
-
-if sys.version_info[0] >= 3:
-    long = int
 
 
 class MarkerDetailView(BaseDetailView):
@@ -30,7 +25,7 @@ class MarkerDetailView(BaseDetailView):
 
         # Take a GET parameter instead of URLConf variable.
         try:
-            pk = long(self.request.GET[self.pk_url_kwarg])
+            pk = int(self.request.GET[self.pk_url_kwarg])
         except (KeyError, ValueError):
             raise Http404("Invalid Parameters")
         queryset = queryset.filter(pk=pk)

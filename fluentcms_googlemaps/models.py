@@ -1,11 +1,8 @@
-from __future__ import unicode_literals
-
 from django.conf import settings
 from django.db import models
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
-from django.utils.six import python_2_unicode_compatible
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from fluent_contents.extensions import PluginHtmlField, PluginImageField
 from fluent_contents.models import ContentItem
@@ -15,7 +12,6 @@ from geoposition.fields import GeopositionField
 from . import appsettings
 
 
-@python_2_unicode_compatible
 class MarkerGroup(CachedModelMixin, models.Model):
     """
     Grouping of markers in a given category,
@@ -67,7 +63,6 @@ class MarkerGroup(CachedModelMixin, models.Model):
         }
 
 
-@python_2_unicode_compatible
 class Marker(CachedModelMixin, models.Model):
     """
     A single point on the map
@@ -124,7 +119,6 @@ def _clear_mapitem_cache():
     MapItem.objects.all().clear_cache()
 
 
-@python_2_unicode_compatible
 class MapItem(ContentItem):
     """
     Content Item to add a map to a page.

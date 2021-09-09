@@ -1,0 +1,4 @@
+[run]
+source = fluentcms_googlemaps/
+omit =
+    */migrations/*

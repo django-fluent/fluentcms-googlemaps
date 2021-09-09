@@ -1,8 +1,6 @@
-from __future__ import unicode_literals
-
 from django.db import models
 from django.forms import Media
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils.translation import get_language
 
 from fluent_contents.extensions import ContentPlugin, plugin_pool
@@ -17,7 +15,7 @@ from .widgets import InlineGeopositionWidget, ZoomRangeWidget
 class InlineGeopositionField(GeopositionField):
     # Custom form field, to assign edited widget.
     def __init__(self, *args, **kwargs):
-        super(InlineGeopositionField, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.widget = InlineGeopositionWidget()
 
 
