@@ -31,8 +31,8 @@ class ZoomRangeWidget(forms.TextInput):
         attrs['onchange'] = 'this.nextSibling.innerHTML = this.value;'
         return attrs
 
-    def render(self, name, value, attrs=None):
-        input = super(ZoomRangeWidget, self).render(name, value, attrs=attrs)
+    def render(self, name, value, *args, **kwargs):
+        input = super(ZoomRangeWidget, self).render(name, value, *args, **kwargs)
         return format_html('{0}<span class="zoom-value">{1}</span>', input, value)
 
     class Media:
